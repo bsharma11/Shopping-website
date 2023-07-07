@@ -1,0 +1,56 @@
+<%-include('../../shared/includes/head',{pagetitle:"Signup"})%>
+<link rel="stylesheet" href="/styles/forms.css">
+<link rel="stylesheet" href="/styles/auth.css">
+</head>
+
+<body>
+    <%-include("../../shared/includes/header") %>
+    <main>
+        <h1>Create new account</h1>
+        <% if (inputData.errorMessage) { %>
+            <section class="alert">
+                <h2>Invalid Input</h2>
+                <p><%= inputData.errorMessage %></p>
+            </section>
+        <% } %>
+        <form action="/signup" method="post">
+            <input type="hidden" name="_csrf" value="<%= locals.csrfToken%>">
+            <p>
+                <label for="email">Email address</label>
+                <input type="email" name="email" id="email" value="<%=inputData.email %>" required>
+            </p>
+            <p>
+                <label for="confirm_email">Confirm Email</label>
+                <input type="email" name="confirm_email" id="confirm_email"  value="<%=inputData.confirmEmail %>" required>
+            </p>
+            <p>
+                <label for="pass">Password</label>
+                <input type="password" name="pass" id="pass" minlength="6"  value="<%=inputData.password%>" required>
+            </p>
+            <hr>
+            <p>
+                <label for="fullname">Fullname</label>
+                <input type="text" name="fullname" value="<%=inputData.fullname %>"  id="fullname">
+            </p>
+            <p>
+                <label for="street">Street</label>
+                <input type="text" name="street" value="<%=inputData.street %>"  id="street">
+            </p>
+            <p>
+                <label for="postal">Postal-Code</label>
+                <input type="text" name="postal" value="<%=inputData.postal %>"  id="postal">
+            </p>
+            <p>
+                <label for="city">City</label>
+                <input type="text" name="city" value="<%=inputData.city %>"  id="city">
+            </p>
+            <button class="btn">
+                Create Account
+            </button>
+            <p id="switch-form"><a href="/login">Login Instead</a></p>
+            
+            
+        </form>
+    </main>
+</body>
+</html>

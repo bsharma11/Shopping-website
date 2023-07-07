@@ -1,0 +1,30 @@
+<%-include('../../shared/includes/head',{pagetitle:"Your Cart"})%>
+<link rel="stylesheet" href="/styles/cart.css"> 
+<script src="/scripts/cart-item-management.js" defer></script>
+</head>
+
+<body>
+    <%-include("../../shared/includes/header") %>
+    <main>
+        <h1>Your cart</h1>
+        <ul id="cart-items">
+            <% for (const cartitem of locals.cart.items) { %>
+            <li>
+                <%- include('includes/cart-item',{item:cartitem}) %>
+            </li>
+            <% } %>
+        </ul>
+        <div id="cart-total">
+            <p>Total: $ <span id="cart-total-price"><%= locals.cart.totalprice.toFixed(2) %></span> </span></p>
+            <% if (locals.isAuth){ %>
+                <form action="/orders" method="post">
+                    <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
+                    <button class="btn">Buy Products</button>
+                </form>
+            <% }else {%>
+                <p id="cart-total-fallback">Login to proceed and purchase the items!!</p>
+                <% } %>
+        </div>
+    </main>
+</body>
+</html>
